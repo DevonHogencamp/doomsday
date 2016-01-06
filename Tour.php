@@ -14,9 +14,9 @@
                 <div class="header">
                     <ul id="MenuBar2" class="MenuBarHorizontal">
                         <li><a href="Index.html">Home</a></li>
-                        <li><a href="Order.html">Order</a></li>
-                        <li><a href="Tour.html">Tours</a></li>
-                        <li><a href="Account.html">Account</a></li>
+                        <li><a href="Order.php">Order</a></li>
+                        <li><a href="Tour.php">Tours</a></li>
+                        <li><a href="Account.php">Account</a></li>
                     </ul>
                     <h1><span id="headertext">TecVault Bunkers</span></h1>
                 </div>

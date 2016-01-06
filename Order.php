@@ -9,14 +9,35 @@
         </head>
         
         <body>
+            <?php
+
+                /*** mysql hostname ***/
+                $hostname = '127.0.0.1:2222';
+                
+                /*** mysql username ***/
+                $username = 'root';
+                
+                /*** mysql password ***/
+                $password = 'root';
+                
+                try {
+                    $dbh = new PDO("mysql:host=$hostname;dbname=mysql", $username, $password);
+                    /*** echo a message saying we have connected ***/
+                    echo 'Connected to database';
+                }
+                catch(PDOException $e)
+                {
+                    echo $e->getMessage();
+                }
+            ?>
             <div class="container">
                 <div class="header-cont">
                     <div class="header">
                         <ul id="MenuBar2" class="MenuBarHorizontal">
                             <li><a href="Index.html">Home</a></li>
-                            <li><a href="Order.html">Order</a></li>
-                            <li><a href="Tour.html">Tours</a></li>
-                            <li><a href="Account.html">Account</a></li>
+                            <li><a href="Order.php">Order</a></li>
+                            <li><a href="Tour.php">Tours</a></li>
+                            <li><a href="Account.php">Account</a></li>
                         </ul>
                         <h1><span id="headertext">TecVault Bunkers</span></h1>
                     </div>
