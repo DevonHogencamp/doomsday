@@ -42,8 +42,8 @@ function redirect() {
                 <br>
                 <div id="loginForm">
                     <form id="login" action="login.php" method="POST" >
-                        Username: <input type="text" id="username" name="user"><br>
-                        Password: <input type="password" id="password" name="pass"><br>
+                        Username: <input type="text" id="username" name="user" required><br>
+                        Password: <input type="password" id="password" name="pass" required><br>
                         <button type="submit" name="submit">Sign In</button>
                         <a href="register.php">
                             <button type="button">Register Here!</button>
