@@ -1,5 +1,26 @@
 <!DOCTYPE html>
 
+<?php
+    /*** mysql hostname ***/
+    $hostname = '127.0.0.1';
+    
+    /*** mysql username ***/
+    $username = 'root';
+    
+    /*** mysql password ***/
+    $password = 'root';
+    
+    try {
+        $dbh = new PDO("mysql:host=$hostname;dbname=doomsday", $username, $password);
+        /*** echo a message saying we have connected ***/
+        echo 'Connected to database';
+        }
+        catch(PDOException $e)
+        {
+            echo $e->getMessage();
+    }
+?>
+
 <html>
     <head> 
         <title>Account Page</title>
@@ -26,10 +47,10 @@
             <div class="accountContent">
                 <br>
                 <div id="loginForm">
-                    <form>
-                        <p>Username: <input type="text"><br>
-                            Password: <input type="password"><br>
-                            <button type="submit">Sign In</button>
+                    <form id="login" action="login.php" method="post" >
+                        <p>Username: <input type="text" id="username" name="username"><br>
+                            Password: <input type="password" id="password" name="password"><br>
+                            <button type="submit" name="submit">Sign In</button>
                             <a href="register.html">
                                 <button type="button">Register</button>
                             </a>

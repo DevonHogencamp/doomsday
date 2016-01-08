@@ -9,6 +9,9 @@
     </head>
     
     <body>
+        <?php
+            echo 'connected php';
+        ?>
         <div class="container">
             <div class="landing">
                 <img id="landingimage" src="images/mascot.jpg" height="150px">

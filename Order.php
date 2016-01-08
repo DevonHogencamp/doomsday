@@ -1,4 +1,34 @@
+<?php
+    /*** mysql hostname ***/
+    $hostname = '127.0.0.1';
+    
+    /*** mysql username ***/
+    $username = 'root';
+    
+    /*** mysql password ***/
+    $password = 'root';
+    
+    try {
+        $dbh = new PDO("mysql:host=$hostname;dbname=doomsday", $username, $password);
+        /*** echo a message saying we have connected ***/
+        echo 'Connected to database';
+        
+        /*** INSERT data ***/
+        $count = $dbh->exec("INSERT INTO users(idusers, username, password) VALUES (NULL, 'test', 'password')");
+
+        /*** echo the number of affected rows ***/
+        echo $count;
+
+        /*** close the database connection ***/
+        $dbh = null;
+        }
+        catch(PDOException $e)
+        {
+            echo $e->getMessage();
+    }
+?>
 <!DOCTYPE html>
+
 
     <html>
         <head>
@@ -9,32 +39,11 @@
         </head>
         
         <body>
-            <?php
-
-                /*** mysql hostname ***/
-                $hostname = '127.0.0.1:2222';
-                
-                /*** mysql username ***/
-                $username = 'root';
-                
-                /*** mysql password ***/
-                $password = 'root';
-                
-                try {
-                    $dbh = new PDO("mysql:host=$hostname;dbname=mysql", $username, $password);
-                    /*** echo a message saying we have connected ***/
-                    echo 'Connected to database';
-                }
-                catch(PDOException $e)
-                {
-                    echo $e->getMessage();
-                }
-            ?>
             <div class="container">
                 <div class="header-cont">
                     <div class="header">
                         <ul id="MenuBar2" class="MenuBarHorizontal">
-                            <li><a href="Index.html">Home</a></li>
+                            <li><a href="Index.php">Home</a></li>
                             <li><a href="Order.php">Order</a></li>
                             <li><a href="Tour.php">Tours</a></li>
                             <li><a href="Account.php">Account</a></li>
