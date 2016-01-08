@@ -5,7 +5,7 @@ $firstName = $_SESSION["firstName"];
 <!DOCTYPE html>
 <html>
     <head> 
-        <title>Account Page</title>
+        <title>Your Account</title>
         <link rel="stylesheet" href="Stylesheet.css" type="text/css">
         <link href="SpryAssets/SpryMenuBarHorizontal.css" rel="stylesheet" type="text/css" />
         <script src="SpryAssets/SpryMenuBar.js" type="text/javascript"></script>
