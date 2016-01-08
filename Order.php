@@ -1,32 +1,3 @@
-<?php
-    /*** mysql hostname ***/
-    $hostname = '127.0.0.1';
-    
-    /*** mysql username ***/
-    $username = 'root';
-    
-    /*** mysql password ***/
-    $password = 'root';
-    
-    try {
-        $dbh = new PDO("mysql:host=$hostname;dbname=doomsday", $username, $password);
-        /*** echo a message saying we have connected ***/
-        echo 'Connected to database';
-        
-        /*** INSERT data ***/
-        $count = $dbh->exec("INSERT INTO users(idusers, username, password) VALUES (NULL, 'test', 'password')");
-
-        /*** echo the number of affected rows ***/
-        echo $count;
-
-        /*** close the database connection ***/
-        $dbh = null;
-        }
-        catch(PDOException $e)
-        {
-            echo $e->getMessage();
-    }
-?>
 <!DOCTYPE html>
 
 

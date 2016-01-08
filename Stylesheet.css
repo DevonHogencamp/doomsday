@@ -140,6 +140,7 @@ a:hover, a:active, a:focus {
 }
 #loginForm{
     text-align: center;
+    margin: 0 auto;
 }
 
 .customerInfo , .customerPurchasing, .tourTime {
@@ -197,4 +198,20 @@ hr.fade {
 }
 #infoForm td {
     width: 200px;
+}
+#registered{
+    color: #ff5c83;
+}
+#loginTable{
+    margin: 0 auto;
+}
+#profile{
+    margin: 80px auto 0;
+    padding: 10px 5px;
+    max-width: 1020px;
+    min-height: 605px;
+    background-color: #FFFFFF;
+    color: #000;
+    border-left: solid #000 2px;
+    border-right: solid #000 2px;
 }

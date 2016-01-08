@@ -1,26 +1,20 @@
-<!DOCTYPE html>
-
 <?php
-    /*** mysql hostname ***/
-    $hostname = '127.0.0.1';
-    
-    /*** mysql username ***/
-    $username = 'root';
-    
-    /*** mysql password ***/
-    $password = 'root';
-    
-    try {
-        $dbh = new PDO("mysql:host=$hostname;dbname=doomsday", $username, $password);
-        /*** echo a message saying we have connected ***/
-        echo 'Connected to database';
-        }
-        catch(PDOException $e)
-        {
-            echo $e->getMessage();
-    }
-?>
 
+session_start();
+
+$registered = $_SESSION["registered"];
+$failedlogin = $_SESSION["loginfail"];
+$UserName = $_SESSION["userName"];
+
+if(isset($_SESSION['userName'])){
+    header('location: profile.php');
+}
+
+function redirect() {
+    header('location: profile.php');
+}
+?>
+<!DOCTYPE html>
 <html>
     <head> 
         <title>Account Page</title>
@@ -34,10 +28,10 @@
             <div class="header-cont">
                 <div class="header">
                     <ul id="MenuBar2" class="MenuBarHorizontal">
-                        <li><a href="Index.html">Home</a></li>
-                        <li><a href="Order.html">Order</a></li>
-                        <li><a href="Tour.html">Tours</a></li>
-                        <li><a href="Account.html">Account</a></li>
+                        <li><a href="Index.php">Home</a></li>
+                        <li><a href="Order.php">Order</a></li>
+                        <li><a href="Tour.php">Tours</a></li>
+                        <li><a href="Account.php">Account</a></li>
                     </ul>
                     <h1>
                         <span id="headertext">TecVault Bunkers</span>
@@ -47,14 +41,25 @@
             <div class="accountContent">
                 <br>
                 <div id="loginForm">
-                    <form id="login" action="login.php" method="post" >
-                        <p>Username: <input type="text" id="username" name="username"><br>
-                            Password: <input type="password" id="password" name="password"><br>
-                            <button type="submit" name="submit">Sign In</button>
-                            <a href="register.html">
-                                <button type="button">Register</button>
-                            </a>
-                        </p>
+                    <form id="login" action="login.php" method="POST" >
+                        Username: <input type="text" id="username" name="user"><br>
+                        Password: <input type="password" id="password" name="pass"><br>
+                        <button type="submit" name="submit">Sign In</button>
+                        <a href="register.php">
+                            <button type="button">Register Here!</button>
+                        </a>
+                        <?php
+                        if(isset($_SESSION['registered'])){
+                            echo '<p id="registered">Successfully Registered</p>';
+                            unset($_SESSION['registered']);
+                        }
+                        ?>
+                        <?php
+                        if(isset($_SESSION['loginfail'])){
+                            echo '<p id="registered">Login Failed.</p>';
+                            unset($_SESSION['loginfail']);
+                        }
+                        ?>
                     </form>
                 </div>
             </div>

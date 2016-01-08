@@ -13,7 +13,7 @@
             <div class="header-cont">
                 <div class="header">
                     <ul id="MenuBar2" class="MenuBarHorizontal">
-                        <li><a href="Index.html">Home</a></li>
+                        <li><a href="Index.php">Home</a></li>
                         <li><a href="Order.php">Order</a></li>
                         <li><a href="Tour.php">Tours</a></li>
                         <li><a href="Account.php">Account</a></li>
