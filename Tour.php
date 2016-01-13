@@ -1,3 +1,12 @@
+<?php
+session_start();
+if(isset($_SESSION['userName'])!="")
+{
+    header("Location: Account.php");
+}
+include_once 'databaseconnect.php';
+
+?>
 <!DOCTYPE html>
 
 <html>
@@ -27,21 +36,23 @@
                 <br>
                 <hr class="fade">
                 <br>
-                <form>
+                <form method="POST">
                     <div id="formCol1">
                         <h3>Sign Up!</h3>
-                        <p>First Name: <input type="text"></p>
-                        <p>Last Name: <input type="text"></p>
-                        <p>Email: <input type="text"></p>
-                        <p>Phone Number: <input type="text"></p>
+                        <p>First Name: <input type="text" name="firstname"></p>
+                        <p>Last Name: <input type="text" name="lastname"></p>
+                        <p>Username: <input type="text" name="username"></p>
+
+                        <p>Email: <input type="text" name="email"></p>
+                        <p>Phone Number: <input type="text" name="phone"></p>
                     </div>
                     <div id="formCol2">
                         <br>
-                        <p>Date: <input type="date"><br>
+                        <p>Date: <input type="date" name="date"><br>
                             <i><span id="smallText"> Bunkers are available for touring 24/7.</span></i>
                         </p>
                         <p>Location:
-                            <select>
+                            <select name="location">
                                 <optgroup label="Western USA">
                                     <option value="california">California SafeZone</option>
                                     <option value="washington">Washington SafeZone</option>
@@ -57,15 +68,31 @@
                             </select>
                         </p>
                         <p>SafeZone ID:
-                            <select>
+                            <select name="safezoneid">
                                 <option value="titanium">Titanium</option>
                                 <option value="cobolt">Cobalt</option>
                                 <option value="stronghold">Stronghold</option>
                                 <option value="tower">Tower</option>
                             </select>
                         </p>
-                    </div>
+                        <button type="submit" name="signup">Submit</button>
                 </form>
+                        <?php
+
+
+
+
+
+
+
+
+
+
+
+
+
+                        ?>
+                    </div>
                 <br>
                 <hr class="fade">
                 <br>

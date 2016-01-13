@@ -1,11 +1,45 @@
 <?php
 session_start();
-if(isset($_SESSION['userName'])!="")
-{
-    header("Location: index.php");
-}
-include_once 'databaseconnect.php';
+include_once('databaseconnect.php');
+$error = false;
+$success = false;
 
+if(@$_POST['signup']) {
+
+    if(!$_POST['username']){
+        $error .= '<p>Username is a required field!</p>';
+    }
+
+    if(!$_POST['firstName']){
+        $error .= '<p>First Name is a required field!</p>';
+    }
+
+    if($_POST['username'] == mysql_query("SELECT * FROM Users WHERE userName = '$_POST[username]'")){
+        $error .= '<p>Username Already in Use.</p>';
+    }
+
+    if($_POST['password'] !== $_POST['checkpassword']){
+        $error .= '<p>Passwords do not Match.</p>';
+    }
+
+    $query = $con->prepare("INSERT INTO Users (UserNameID, userName, password, firstName, lastName) VALUES (:id, :username, :password, :firstname, :lastname)");
+    $result = $query->execute(
+        array(
+            'id' => NULL,
+            'username' => $_POST['username'],
+            'password' => $_POST['password'],
+            'firstname' => $_POST['firstName'],
+            'lastname' => $_POST['lastName']
+        )
+    );
+    if ($result) {
+        $success = "User, " . $_POST['username'] . " was successfully saved.";
+        $_SESSION['registered'] = 1;
+        header("Location: Account.php");
+    } else {
+        $success = "There was an error creating the account.";
+    }
+}
 ?>
 
 <!DOCTYPE html>
@@ -35,58 +69,35 @@ include_once 'databaseconnect.php';
             <div class="accountContent">
                 <br>
                 <div id="loginForm">
-                    <form method="POST" >
+                    <form name="signup" method="POST" >
                         <table id="loginTable">
                             <tr>
                                 <td>Username: <input type="text" id="username" name="username"></td>
-                                <td>Password: <input type="password" id="password" name="password"></td>
+                                <td>Password: <input type="password" id="password" name="password" required></td>
                             </tr>
                             <tr>
                                 <td>First Name: <input type="text" name="firstName" required/></td>
-                                <td>
-
-                                </td>
+                                <td>Confirm Password: <input type="password" id="password" name="checkpassword" required></td>
                             </tr>
                             <tr>
-                                <td>Last Name: <input type="text" name="lastName" required/></td>
+                                <td>Last Name: <input type="text" name="lastName" /></td>
                             </tr>
                         </table>
-                        <button type="submit" name="signup">Register</button>
+                        <button type="submit" name="signup" value="1">Register</button>
                         <a href="Account.php">
                             <button type="button">Already have an account?</button>
                         </a>
                         <br>
                         <?php
-                        if(isset($_POST['signup']))
-                        {
-                        $username = mysql_real_escape_string($_POST['username']);
-                        $password = mysql_real_escape_string($_POST['password']);
-                        $firstName = mysql_real_escape_string($_POST['firstName']);
-                        $lastName = mysql_real_escape_string($_POST['lastName']);
-
-                        if(isset($username)){
-                            $mysql_get_users = mysql_query("SELECT * FROM Users where username='$username'");
-
-                            $get_rows = mysql_affected_rows($con);
-
-                            if($get_rows >=1){
-                                echo "Username in Use";
-                            }
-                            else{
-                                if(mysql_query("INSERT INTO Users(UserNameID,userName,password,firstName,lastName) VALUES(NULL,'$username','$password','$firstName','$lastName')"))
-                                {
-                                    $_SESSION['registered'] = 1;
-                                    echo "Registered.";
-                                    header("Location: Account.php");
-                                }
-                                else {
-                                    echo "Error Creating Account.";
-                                }
-                            }
+                        if($error){
+                            echo $error;
+                            echo '<br>';
                         }
+                        if($success){
+                            echo $success;
+                            echo '<br>';
                         }
                         ?>
-
                         <br>
                     </form>
                 </div>

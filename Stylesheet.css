@@ -205,6 +205,9 @@ hr.fade {
 #loginTable{
     margin: 0 auto;
 }
+#loginTable td{
+    width: 400px;
+}
 #profile{
     margin: 80px auto 0;
     padding: 10px 5px;

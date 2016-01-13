@@ -10,23 +10,28 @@ function SignIn(){
 
     if(!empty($_POST['user']))
     {
-        $query = mysql_query("SELECT *  FROM Users where userName = '$_POST[user]' AND password = '$_POST[pass]'") or die(mysql_error());
-        $row = mysql_fetch_array($query) or die(mysql_error());
-        if(!empty($row['userName']) AND !empty($row['password']))
-        {
+        $query = $con->prepare("SELECT * FROM Users WHERE userName = '$_POST[user]' AND password = '$_POST[pass]'");
+        $result = $query->execute(
+            array(
+                'id' => NULL,
+                'username' => $_POST['username'],
+                'password' => $_POST['password'],
+            )
+        );
+
+        if(!empty($row['userName']) AND !empty($row['password'])) {
             $_SESSION['userName'] = $_POST['user'];
             $_SESSION['firstName'] = $row['firstName'];
             echo "SUCCESSFUL LOGIN.";
             header("Location: profile.php");
         }
-        else
-        {
+        else {
             $_SESSION['loginfail'] = 1;
             echo "FAILED.";
             header("Location: Account.php");
         }
     }
-    else{
+    else {
         $_SESSION['loginfail'] = 1;
         echo "FAILED.";
         header("Location: Account.php");
