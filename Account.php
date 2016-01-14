@@ -3,17 +3,57 @@
 session_start();
 
 $registered = $_SESSION["registered"];
-$failedlogin = $_SESSION["loginfail"];
 $UserName = $_SESSION["userName"];
 
 if(isset($_SESSION['userName'])){
     header('location: profile.php');
 }
 
-function redirect() {
-    header('location: profile.php');
+if(isset($_SESSION['userName'])!="")
+{
+    header("Location: Account.php");
 }
+
+
+//START
+
+include_once('databaseconnect.php');
+
+$error = false;
+$success = false;
+
+if(@$_POST['login']) {
+
+    if(!$_POST['user']){
+        $error .= '<p>Username is a required field!</p>';
+    }
+
+    if(!$_POST['pass']){
+        $error .= '<p>Password is a required field!</p>';
+    }
+
+    $query = $con->prepare("SELECT * FROM Users WHERE userName = :username AND password = :password");
+    $result = $query->execute(
+        array(
+            'username' => $_POST['user'],
+            'password' => $_POST['pass']
+        )
+    );
+    if ($result) {
+        $success = "User, " . $_POST['user'] . " was successfully logged in.";
+
+        $userinfo = $query->fetch();
+        print_r($userinfo);
+        $_SESSION["firstName"] = $userinfo['firstName'];
+
+        header("Location: profile.php");
+    } else {
+        $success = "There was an error logging into the account.";
+    }
+}
+
 ?>
+
 <!DOCTYPE html>
 <html>
     <head> 
@@ -41,10 +81,10 @@ function redirect() {
             <div class="accountContent">
                 <br>
                 <div id="loginForm">
-                    <form id="login" action="login.php" method="POST" >
+                    <form id="login" method="POST" >
                         Username: <input type="text" id="username" name="user" required><br>
                         Password: <input type="password" id="password" name="pass" required><br>
-                        <button type="submit" name="submit">Sign In</button>
+                        <button type="submit" name="login" value="1">Sign In</button>
                         <a href="register.php">
                             <button type="button">Register Here!</button>
                         </a>
@@ -55,9 +95,13 @@ function redirect() {
                         }
                         ?>
                         <?php
-                        if(isset($_SESSION['loginfail'])){
-                            echo '<p id="registered">Login Failed.</p>';
-                            unset($_SESSION['loginfail']);
+                        if($error){
+                            echo $error;
+                            echo '<br>';
+                        }
+                        if($success){
+                            echo $success;
+                            echo '<br>';
                         }
                         ?>
                     </form>
