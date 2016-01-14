@@ -1,12 +1,47 @@
 <?php
 session_start();
-if(isset($_SESSION['userName'])!="")
-{
-    header("Location: Account.php");
-}
-include_once 'databaseconnect.php';
+include_once('databaseconnect.php');
+$error = false;
+$success = false;
 
+if(@$_POST['signup']) {
+
+    if(!$_POST['username']){
+        $error .= '<p>Username is a required field!</p>';
+    }
+
+    if(!$_POST['firstName']){
+        $error .= '<p>First Name is a required field!</p>';
+    }
+
+    if($_POST['username'] == mysql_query("SELECT * FROM Users WHERE userName = '$_POST[username]'")){
+        $error .= '<p>Username Already in Use.</p>';
+    }
+
+    if($_POST['password'] !== $_POST['checkpassword']){
+        $error .= '<p>Passwords do not Match.</p>';
+    }
+
+    $query = $con->prepare("INSERT INTO Users (UserNameID, userName, password, firstName, lastName) VALUES (:id, :username, :password, :firstname, :lastname)");
+    $result = $query->execute(
+        array(
+            'id' => NULL,
+            'username' => $_POST['username'],
+            'password' => $_POST['password'],
+            'firstname' => $_POST['firstName'],
+            'lastname' => $_POST['lastName']
+        )
+    );
+    if ($result) {
+        $success = "User, " . $_POST['username'] . " was successfully saved.";
+        $_SESSION['registered'] = 1;
+        header("Location: Account.php");
+    } else {
+        $success = "There was an error creating the account.";
+    }
+}
 ?>
+
 <!DOCTYPE html>
 
 <html>

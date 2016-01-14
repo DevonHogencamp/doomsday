@@ -9,16 +9,10 @@ if(isset($_SESSION['userName'])){
     header('location: profile.php');
 }
 
-if(isset($_SESSION['userName'])!="")
-{
-    header("Location: Account.php");
-}
-
-
-//START
-
 include_once('databaseconnect.php');
 
+
+//START Login
 $error = false;
 $success = false;
 
@@ -39,12 +33,14 @@ if(@$_POST['login']) {
             'password' => $_POST['pass']
         )
     );
-    if ($result) {
+    $userinfo = $query->fetch();
+
+    if ($userinfo) {
+
         $success = "User, " . $_POST['user'] . " was successfully logged in.";
 
-        $userinfo = $query->fetch();
-        print_r($userinfo);
         $_SESSION["firstName"] = $userinfo['firstName'];
+        $_SESSION["userName"] = $userinfo['userName'];
 
         header("Location: profile.php");
     } else {
@@ -96,12 +92,12 @@ if(@$_POST['login']) {
                         ?>
                         <?php
                         if($error){
-                            echo $error;
                             echo '<br>';
+                            echo $error;
                         }
                         if($success){
-                            echo $success;
                             echo '<br>';
+                            echo $success;
                         }
                         ?>
                     </form>
