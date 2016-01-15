@@ -12,6 +12,7 @@ session_start();
         </head>
         
         <body>
+        <div class="Bg image">
             <div class="container">
                 <div class="header-cont">
                     <div class="header">
