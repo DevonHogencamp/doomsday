@@ -3,7 +3,6 @@ session_start();
 ?>
 <!DOCTYPE html>
 
-
     <html>
         <head>
             <title>Order Page</title>
