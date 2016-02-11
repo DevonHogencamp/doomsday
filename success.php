@@ -33,6 +33,10 @@ include_once('databaseconnect.php');
             echo '<p id="registered">Tour Successfully Registered.</p>';
             unset($_SESSION['reserved']);
         }
+        if(isset($_SESSION['ordered'])){
+            echo '<p id="registered">Order Successfully Placed.</p>';
+            unset($_SESSION['ordered']);
+        }
         ?>
     </div>
     <br>
